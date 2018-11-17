@@ -41,6 +41,7 @@ import numpy as np
 from six.moves import range
 
 from S3SimpleFileObject import S3SimpleFileObject
+from HTTPSimpleFileObject import HTTPSimpleFileObject
 
 try:
     import zstd
@@ -170,6 +171,8 @@ class PyBGEN(object):
     def _get_file_reader(self, fn):
         if fn.startswith('s3://'):
             file_reader = S3SimpleFileObject(fn)
+        elif fn.startswith('http://') or fn.startswith('https://'):
+            file_reader = HTTPSimpleFileObject(fn)
         else:
             file_reader = open(fn)
 
