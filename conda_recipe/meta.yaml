@@ -20,12 +20,14 @@ requirements:
         - numpy >=1.12.0
         - six >=1.10.0
         - boto3 >= 1.9.47
+        - requests >= 2.20.0
     run:
         - python {{ python }}.*
         - setuptools
         - numpy >=1.12.0
         - six >=1.10.0
         - boto3 >= 1.9.47
+        - requests >= 2.20.0
 
 test:
     imports:
