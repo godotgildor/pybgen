@@ -6,7 +6,7 @@ python:
   - "3.6"
 install:
   - pip install -U pip setuptools
-  - pip install -U six numpy zstandard coveralls
+  - pip install -U six numpy zstandard coveralls boto3
   - pip list
 script:
   - coverage run setup.py test

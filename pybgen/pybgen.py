@@ -40,6 +40,8 @@ import numpy as np
 
 from six.moves import range
 
+from S3SimpleFileObject import S3SimpleFileObject
+
 try:
     import zstd
     HAS_ZSTD = True
@@ -111,7 +113,7 @@ class PyBGEN(object):
 
         if self._mode == "r":
             # Parsing the file
-            self._bgen = open(fn, "rb")
+            self._bgen, fn = self._get_file_reader(fn)
             self._parse_header()
 
             # Did the samples were parsed?
@@ -164,6 +166,14 @@ class PyBGEN(object):
     def __exit__(self, *args):
         """Exiting the context manager."""
         self.close()
+
+    def _get_file_reader(self, fn):
+        if fn.startswith('s3://'):
+            file_reader = S3SimpleFileObject(fn)
+        else:
+            file_reader = open(fn)
+
+        return (file_reader, file_reader.name)
 
     def close(self):
         """Closes the BGEN object."""
